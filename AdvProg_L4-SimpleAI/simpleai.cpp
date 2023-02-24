@@ -27,6 +27,10 @@ int readWordLen()
 vector<string> filterWordsByLen(int wordLen, const vector<string>& vocabulary)
 {
     vector<string> answer;
+    for ( int i =0 ; i < vocabulary.size() ; i++)
+    {
+        if ( vocabulary[i].size() == wordLen ) answer.push_back(vocabulary[i]);
+    }
     //Write your code here
     return answer;
 }
