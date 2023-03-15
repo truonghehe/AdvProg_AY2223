@@ -105,7 +105,16 @@ char findMostFrequentChar(const map<char, int>& occurrences, const set<char>& se
 char findBestChar(const vector<string>& candidateWords, const set<char>& selectedChars)
 {
     char answer;
+    map<char , int> occurrences;
+        for ( int i =0 ; i < candidateWords.size() ; i++)
+        {
+            for ( int j = 0 ; j < candidateWords[i].size() ; j++)
+            {
+                occurrences[candidateWords[i][j]]++;
+            }
+        }
     
+    answer = findMostFrequentChar(occurrences , selectedChars);
     return answer;
 }
 
@@ -128,8 +137,13 @@ string getWordMask(char nextChar)
 
 bool isCorrectChar(char ch, const string& mask)
 {
-    bool answer;
+    bool answer = false;
     //Write your code here
+    
+    for ( int i=0 ; i< mask.size() ; i++)
+    {
+        if ( ch == mask[i] ) {answer = true; break;}
+    }
     return answer;
 }
 
@@ -143,8 +157,16 @@ bool isCorrectChar(char ch, const string& mask)
 ***/
 bool isWholeWord(const string& mask)
 {
-     bool answer;
+     bool answer = true;
     //Write your code here
+    for ( int i=0 ; i < mask.size() ; i++)
+    {
+        if ( mask[i] == '_') 
+        {
+            answer = false;
+            break;
+        }
+    }
     return answer;
 }
 
@@ -162,8 +184,21 @@ bool isWholeWord(const string& mask)
 ***/
 bool wordConformToMask(const string& word, const string& mask, char ch) 
 {
-    bool answer;
+    bool answer = true;
     //Write your code here
+    vector<int> pos;
+    for ( int i = 0 ; i< word.size() ; i++)
+    {
+        if ( word[i] == ch ) pos.push_back(i); 
+    }
+    for ( int i=0 ; i<pos.size() ; i++)
+    {
+        if ( word[i] != mask[i]) 
+        {
+            answer = false;
+            break;
+        }
+    }
     return answer;
 }
 
@@ -183,5 +218,10 @@ vector<string> filterWordsByMask(const vector<string>& words, const string& mask
 {
     vector<string> answer;
     //Write your code here
+    for ( int i= 0 ; i< words.size()  ; i++)
+    {
+        bool check = wordConformToMask(words[i], mask , ch);
+        if ( check ) answer.push_back(words[i]);
+    }
     return answer;
 }
