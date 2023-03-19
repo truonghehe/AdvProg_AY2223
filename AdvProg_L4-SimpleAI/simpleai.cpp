@@ -161,8 +161,11 @@ bool isWholeWord(const string& mask)
     //Write your code here
     for ( int i=0 ; i < mask.size() ; i++)
     {
-        if ( mask[i] == '_') 
+        if ( (mask[i] >= 'a' && mask[i] <= 'z' ) || ( mask[i] >= 'A' && mask[i] <= 'Z') ) 
         {
+            continue;
+        }
+        else{
             answer = false;
             break;
         }
